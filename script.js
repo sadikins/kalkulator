@@ -8,7 +8,7 @@ numbers.forEach((number) => {
 
     })
 
-}) 
+})
 
 
 const calculatorScreen = document.querySelector('.calculator-screen')
@@ -16,10 +16,9 @@ const calculatorScreen = document.querySelector('.calculator-screen')
 const updateScreen = (number) => {
     calculatorScreen.value = number
 
-    
+
 }
 
-// const numbers = document.querySelectorAll(".number")
 
 numbers.forEach((number) => {
     number.addEventListener("click", (event) => {
@@ -30,16 +29,22 @@ numbers.forEach((number) => {
 
 
 
+
+
+
 let prevNumber = ''
 let calculationOperator = ''
 let currentNumber = '0'
 
+// percentage.addEventListener('click', () => {
+//     currentNumber = getValueAsNum();
 
+// })
 
 numbers.forEach((number) => {
     number.addEventListener("click", (event) => {
         inputNumber(event.target.value)
-     updateScreen(currentNumber)   
+        updateScreen(currentNumber)
     })
 })
 
@@ -53,18 +58,11 @@ const inputNumber = (number) => {
 
 
 
-// operators.forEach((operator) => {
-//     operator.addEventListener("click", (event) => {
-//         console.log(event.target.value)
-//     })
-// })
-
-
 
 const inputOperator = (operator) => {
 
     if (calculationOperator === '') {
-        
+
         prevNumber = currentNumber
     }
 
@@ -77,6 +75,13 @@ const operators = document.querySelectorAll(".operator")
 operators.forEach((operator) => {
     operator.addEventListener("click", (event) => {
         inputOperator(event.target.value)
+        // updateScreen(event.target.value)
+    })
+})
+
+operators.forEach((operator) => {
+    operator.addEventListener("click", (event) => {
+        console.log(event.target.value)
     })
 })
 
@@ -91,16 +96,16 @@ const calculate = () => {
             result = parseFloat(prevNumber) + parseInt(currentNumber)
             break
         case "-":
-            result = parseInt(prevNumber) - parseInt(currentNumber)
+            result = parseFloat(prevNumber) - parseFloat(currentNumber)
             break
         case "*":
-            result = parseInt(prevNumber) * parseInt(currentNumber)
+            result = parseFloat(prevNumber) * parseFloat(currentNumber)
             break
         case "/":
-            result = parseInt(prevNumber) / parseInt(currentNumber)
+            result = parseFloat(prevNumber) / parseFloat(currentNumber)
             break
         case '%':
-            result = parseInt(prevNumber) % parseInt(currentNumber)
+            result = parseFloat(prevNumber) / 100
             break
         default:
             break
@@ -111,18 +116,32 @@ const calculate = () => {
 }
 
 
+
+
 equalSign.addEventListener('click', () => {
     calculate()
     updateScreen(currentNumber)
 })
 
 
+const percentage = document.querySelector('.percentage')
+
+const percent = () => {
+    currentNumber = parseFloat(currentNumber)/100
+    updateScreen(currentNumber)
+}
+
+percentage.addEventListener('click', () => {
+    percent()
+    updateScreen(currentNumber)
+})
+
 const clearBtn = document.querySelector('.all-clear')
 
 const clearAll = () => {
     prevNumber = ''
     calculationOperator = ''
-    currentNumber='0'
+    currentNumber = '0'
 }
 
 clearBtn.addEventListener('click', () => {
